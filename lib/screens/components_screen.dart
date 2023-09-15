@@ -48,6 +48,7 @@ class ComponentsScreen extends StatelessWidget {
                   type: ButtonType.primary,
                   buttonText: "Input Fields",
                   onPressed: () => Get.to(() => InputScreen())),
+              const SizedBox(height: 24),
               // Button(
               //     rightIcon: const Icon(Icons.arrow_forward_ios),
               //     type: ButtonType.primaryColor,

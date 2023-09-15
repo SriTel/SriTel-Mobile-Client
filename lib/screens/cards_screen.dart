@@ -2,6 +2,7 @@ import 'package:SriTel/theme/colors.dart';
 import 'package:SriTel/widgets/addon_widget.dart';
 import 'package:SriTel/widgets/extragb_widget.dart';
 import 'package:SriTel/widgets/package_widget.dart';
+import 'package:SriTel/widgets/payment_history_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -95,7 +96,18 @@ class CardsScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-              )
+              ),
+              const SizedBox(height: 24),
+              CustomCard(
+                type: CardType.light,
+                child: PaymentHistoryWidget(
+                  paymentAmount: 8456,
+                  outstanding: 8456,
+                  paymentType: PaymentType.card,
+                  dateTime: DateTime.now(),
+                  onPressed: ()=>{},
+                ),
+              ),
 
             ],
           )),

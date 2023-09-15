@@ -1,4 +1,5 @@
 import 'package:SriTel/theme/colors.dart';
+import 'package:SriTel/widgets/panel_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -40,6 +41,18 @@ class ButtonsScreen extends StatelessWidget {
                 type: ButtonType.disabled,
                 buttonText: "Disabled",
                 onPressed: () => Get.back()),
+            const SizedBox(height: 24),
+            PanelButton(
+                buttonText: "Package",
+                isActive: true,
+                onPressed: () => {},
+            ),
+            const SizedBox(height: 24),
+            PanelButton(
+                buttonText: "Add-Ons",
+                isActive: false,
+                onPressed: () => {},
+            ),
             const SizedBox(height: 24),
             Divider(
               color: SriTelColor.white.withOpacity(0.3),
