@@ -1,12 +1,12 @@
 import 'package:SriTel/screens/buttons_screen.dart';
-import 'package:SriTel/screens/input_feild_screen.dart';
+import 'package:SriTel/screens/cards_screen.dart';
+import 'package:SriTel/screens/chat_widget_screen.dart';
+import 'package:SriTel/screens/input_field_screen.dart';
 import 'package:SriTel/services/auth_service.dart';
 import 'package:SriTel/theme/colors.dart';
+import 'package:SriTel/widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../widgets/button.dart';
-import 'cards_screen.dart';
 
 class ComponentsScreen extends StatelessWidget {
   const ComponentsScreen({super.key});
@@ -17,8 +17,8 @@ class ComponentsScreen extends StatelessWidget {
     return Scaffold(
       // Use Obx(()=> to update Text() whenever count is changed.
       appBar: AppBar(
-        title: Text("SriTel App Components"),
-        leading: SizedBox(),
+        title: const Text("SriTel App Components"),
+        leading: const SizedBox(),
       ),
       backgroundColor: SriTelColor.bgColor,
       // Replace the 8 lines Navigator.push by a simple Get.to(). You don't need context
@@ -48,6 +48,12 @@ class ComponentsScreen extends StatelessWidget {
                   type: ButtonType.primary,
                   buttonText: "Input Fields",
                   onPressed: () => Get.to(() => InputScreen())),
+              const SizedBox(height: 24),
+              Button(
+                  rightIcon: const Icon(Icons.arrow_forward_ios),
+                  type: ButtonType.primary,
+                  buttonText: "Chat Fields",
+                  onPressed: () => Get.to(() => const ChatWidgetScreen())),
               const SizedBox(height: 24),
               // Button(
               //     rightIcon: const Icon(Icons.arrow_forward_ios),

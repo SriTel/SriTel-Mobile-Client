@@ -27,6 +27,25 @@ class InputScreen extends StatelessWidget {
               controller: emailController,
             ),
             const SizedBox(height: 24),
+            InputField(
+              labelText: 'Email',
+              controller: emailController,
+              type: InputType.floatingTitle,
+            ),
+            const SizedBox(height: 24),
+            InputField(
+              labelText: 'Email',
+              controller: emailController,
+              type: InputType.noTitle,
+            ),
+            const SizedBox(height: 24),
+            InputField(
+              leadingIcon: const Icon(Icons.attach_money),
+              labelText: 'Email',
+              controller: emailController,
+              type: InputType.noTitle,
+            ),
+            const SizedBox(height: 24),
             Divider(
               color: SriTelColor.white.withOpacity(0.3),
               thickness: 1,

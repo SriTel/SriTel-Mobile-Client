@@ -1,8 +1,11 @@
 import 'package:SriTel/theme/colors.dart';
 import 'package:SriTel/widgets/addon_widget.dart';
+import 'package:SriTel/widgets/bill_widget.dart';
 import 'package:SriTel/widgets/extragb_widget.dart';
 import 'package:SriTel/widgets/package_widget.dart';
 import 'package:SriTel/widgets/payment_history_widget.dart';
+import 'package:SriTel/widgets/toggable_widget.dart';
+import 'package:SriTel/widgets/tune_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -13,6 +16,12 @@ class CardsScreen extends StatelessWidget {
 
   @override
   Widget build(context) {
+
+    List<BillEntry> billEntries = [
+      BillEntry(title: 'Domestic Calls', charge: 150),
+      BillEntry(title: 'International Calls', charge: 150)
+    ];
+
     return Scaffold(
       // Use Obx(()=> to update Text() whenever count is changed.
       appBar: AppBar(title: const Text("Cards")),
@@ -108,7 +117,26 @@ class CardsScreen extends StatelessWidget {
                   onPressed: ()=>{},
                 ),
               ),
-
+              const SizedBox(height: 24),
+              CustomCard(
+                  type: CardType.light,
+                  // child: Text('Hello'),
+                  child: BillWidget(
+                    billEntries: billEntries,
+                    taxAmount: 150
+                  ),
+              ),
+              const SizedBox(height: 24),
+              ToggableWidget(
+                title: 'Roaming (Voice/Data)',
+                state: false,
+                onPressed: ()=>{},
+              ),
+              const SizedBox(height: 24),
+              TuneWidget(
+                tuneName: 'Alone - Alan Walker',
+                onPressed: ()=>{},
+              ),
             ],
           )),
         ),
