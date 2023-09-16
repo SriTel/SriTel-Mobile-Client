@@ -5,6 +5,7 @@ enum ChatTextType { send, receive}
 
 class ChatText extends StatelessWidget {
   final ChatTextType type;
+
   const ChatText({super.key, required this.type});
 
   @override
