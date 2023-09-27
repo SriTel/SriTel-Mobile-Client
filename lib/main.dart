@@ -1,5 +1,5 @@
 import 'package:SriTel/controllers/screen_controller.dart';
-import 'package:SriTel/screens/home_screen.dart';
+import 'package:SriTel/screens/main_page.dart';
 import 'package:SriTel/screens/splash_screen.dart';
 import 'package:SriTel/theme/app_theme.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'SriTel',
       theme: AppTheme.lightTheme,
-      home: _screenController.isSplashScreenSeen.value ? const HomeScreen() : const SplashScreen(),
+      home: _screenController.isSplashScreenSeen.value ? const MainPage() : const SplashScreen(),
     );
   }
 }

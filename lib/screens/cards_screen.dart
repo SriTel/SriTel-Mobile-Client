@@ -2,8 +2,10 @@ import 'package:SriTel/theme/colors.dart';
 import 'package:SriTel/widgets/addon_widget.dart';
 import 'package:SriTel/widgets/bill_widget.dart';
 import 'package:SriTel/widgets/extragb_widget.dart';
+import 'package:SriTel/widgets/featured_package_widget.dart';
 import 'package:SriTel/widgets/package_widget.dart';
 import 'package:SriTel/widgets/payment_history_widget.dart';
+import 'package:SriTel/widgets/quick_access_widget.dart';
 import 'package:SriTel/widgets/toggable_widget.dart';
 import 'package:SriTel/widgets/tune_widget.dart';
 import 'package:flutter/material.dart';
@@ -106,6 +108,55 @@ class CardsScreen extends StatelessWidget {
                   ],
                 ),
               ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  QuickAccessWidget(
+                    label: 'Balance',
+                    onTap: (){},
+                  ),
+                  QuickAccessWidget(
+                    label: 'Add-On',
+                    onTap: (){},
+                  ),
+                  QuickAccessWidget(
+                    label: 'History',
+                    onTap: (){},
+                  ),
+                ],
+              ),
+              const SizedBox(height: 15),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    FeaturedPackageWidget(
+                      data: 10,
+                      validDays: 7,
+                      price: 69,
+                      onTap: (){},
+                    ),
+                    const SizedBox(width: 15),
+                    FeaturedPackageWidget(
+                      data: 18,
+                      validDays: 14,
+                      price: 169,
+                      type: CardType.extragb3,
+                      onTap: (){},
+                    ),
+                    const SizedBox(width: 15),
+                    FeaturedPackageWidget(
+                      data: 28,
+                      validDays: 14,
+                      price: 259,
+                      type: CardType.extragb2,
+                      onTap: (){},
+                    ),
+                  ],
+                ),
+              ),
+
               const SizedBox(height: 24),
               CustomCard(
                 type: CardType.light,

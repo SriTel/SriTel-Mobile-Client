@@ -1,26 +1,29 @@
 import 'package:SriTel/theme/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 enum ChatTextType { send, receive}
 
 class ChatText extends StatelessWidget {
   final ChatTextType type;
+  final String text;
+  final DateTime dateTime;
 
-  const ChatText({super.key, required this.type});
+  const ChatText({super.key, required this.type, required this.text, required this.dateTime});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      constraints: BoxConstraints(maxWidth: 246.0),
+      constraints: const BoxConstraints(maxWidth: 246.0),
       decoration: BoxDecoration(
         color: type == ChatTextType.receive ? SriTelColor.white : SriTelColor.primaryColor,
         borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(15),
-          topRight: Radius.circular(15),
-          bottomRight: type == ChatTextType.receive ? Radius.circular(15) : Radius.circular(0),
-          bottomLeft: type == ChatTextType.receive ? Radius.circular(0) : Radius.circular(15),
+          topLeft: const Radius.circular(15),
+          topRight: const Radius.circular(15),
+          bottomRight: type == ChatTextType.receive ? const Radius.circular(15) : const Radius.circular(0),
+          bottomLeft: type == ChatTextType.receive ? const Radius.circular(0) : const Radius.circular(15),
         ),
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
             color: SriTelColor.lightGrey,
             blurRadius: 32,
@@ -30,7 +33,7 @@ class ChatText extends StatelessWidget {
         ],
       ),
       child: Padding(
-        padding: EdgeInsets.only(
+        padding: const EdgeInsets.only(
           top: 16,
           right: 10,
           bottom: 8,
@@ -40,17 +43,17 @@ class ChatText extends StatelessWidget {
           crossAxisAlignment: type == ChatTextType.receive ? CrossAxisAlignment.start : CrossAxisAlignment.end,
           children: [
             Text(
-                'Hello how can I help you?',
+              text,
               style: TextStyle(
                 color: type == ChatTextType.receive ? SriTelColor.titleTextColor : SriTelColor.white,
                 fontSize: 14,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
             Text(
-              '16:04 pm',
+              DateFormat('HH:mm a').format(dateTime).toLowerCase(),
               style: TextStyle(
                 color: type == ChatTextType.receive ? SriTelColor.grey.withOpacity(0.75) : SriTelColor.lightWhite,
                 fontSize: 10,

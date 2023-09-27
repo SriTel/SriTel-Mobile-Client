@@ -6,7 +6,7 @@ class ExtraGBWidget extends StatelessWidget {
   final double data;
   final double price;
   final Callback onTap;
-  ExtraGBWidget({super.key, required this.data, required this.price, required this.onTap});
+  const ExtraGBWidget({super.key, required this.data, required this.price, required this.onTap});
 
   @override
   Widget build(BuildContext context) {

@@ -1,6 +1,7 @@
 import 'package:SriTel/theme/colors.dart';
 import 'package:SriTel/widgets/ChatText.dart';
 import 'package:SriTel/widgets/panel_button.dart';
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -24,10 +25,14 @@ class ChatWidgetScreen extends StatelessWidget {
           children: [
             ChatText(
               type: ChatTextType.receive,
+              text: 'Hi, How can I help you?',
+              dateTime: DateTime.now(),
             ),
             const SizedBox(height: 24),
             ChatText(
               type: ChatTextType.send,
+              text: 'I need assistance on how to activate this package',
+              dateTime: DateTime.now(),
             ),
             const SizedBox(height: 24),
             Divider(
@@ -37,6 +42,7 @@ class ChatWidgetScreen extends StatelessWidget {
           ],
         )),
       ),
+
     );
   }
 }

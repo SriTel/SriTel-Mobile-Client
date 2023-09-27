@@ -20,7 +20,7 @@ class InputField extends StatelessWidget {
     required this.controller,
     this.type = InputType.separateTitle,
     this.leadingIcon,
-    this.color = SriTelColor.titleTextColor,
+    this.color = SriTelColor.grey,
     this.height = 54,
     this.fillColor = SriTelColor.lighterWhite,
     this.obscureText = false,
@@ -50,10 +50,10 @@ class InputField extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
             color: SriTelColor.lighterWhite,
-            border: Border.all(
-              color: SriTelColor.grey,
-              width: 0.5
-            )
+            // border: Border.all(
+            //   color: SriTelColor.lighterGrey.withOpacity(0.5),
+            //   width: 1
+            // )
           ),
           child: TextField(
             onChanged: onChanged != null ? (value) => onChanged!(value) : null,
@@ -83,10 +83,10 @@ class InputField extends StatelessWidget {
                   fontSize: 15),
               enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
-                  borderSide: const BorderSide(color: SriTelColor.lighterBlack)),
+                  borderSide: const BorderSide(color: SriTelColor.lightGrey)),
               focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
-                  borderSide: const BorderSide(color: SriTelColor.lighterBlack)),
+                  borderSide: const BorderSide(color: SriTelColor.grey)),
               filled: true,
               label: Text(labelText, style: TextStyle(color: color)),
               hintStyle: const TextStyle(color: SriTelColor.lightWhite),
