@@ -13,6 +13,7 @@ class InputField extends StatelessWidget {
   final bool obscureText;
   final TextEditingController controller;
   final void Function(String)? onChanged;
+  final bool numberInput;
 
   const InputField({
     super.key,
@@ -24,6 +25,7 @@ class InputField extends StatelessWidget {
     this.height = 54,
     this.fillColor = SriTelColor.lighterWhite,
     this.obscureText = false,
+    this.numberInput = false,
     this.onChanged,
   });
 
@@ -59,8 +61,9 @@ class InputField extends StatelessWidget {
             onChanged: onChanged != null ? (value) => onChanged!(value) : null,
             controller: controller,
             obscureText: obscureText,
-            style: TextStyle(
-              color: color, // Change the text color here
+            keyboardType: numberInput ? TextInputType.number : TextInputType.text,
+            style: const TextStyle(
+              color: SriTelColor.titleTextColor, // Change the text color here
               fontSize: 15.0,
             ),
             decoration: InputDecoration(
@@ -89,7 +92,7 @@ class InputField extends StatelessWidget {
                   borderSide: const BorderSide(color: SriTelColor.grey)),
               filled: true,
               label: Text(labelText, style: TextStyle(color: color)),
-              hintStyle: const TextStyle(color: SriTelColor.lightWhite),
+              hintStyle: TextStyle(color: color),
             ),
           ),
         ),

@@ -26,7 +26,7 @@ class CustomCard extends StatelessWidget {
           showShadow
               ? const BoxShadow(
                   color: SriTelColor.lightGrey,
-                  blurRadius: 32,
+                  blurRadius: 16,
                   offset: Offset(0, 8),
                   spreadRadius: 0,
                 )

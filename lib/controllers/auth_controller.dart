@@ -1,13 +1,12 @@
-import 'package:SriTel/models/login_request.dart';
+import 'package:SriTel/dto/login/login_request.dart';
+import 'package:SriTel/dto/login/login_response.dart';
 import 'package:SriTel/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../models/login_response.dart';
 import '../services/api_service.dart';
 import '../services/auth_service.dart';
 
-class LoginController extends GetxController {
+class AuthController extends GetxController {
   final ApiService _apiService = ApiService();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -32,7 +31,7 @@ class LoginController extends GetxController {
     try {
       final response = await _apiService.sendPostRequest(
         false, // Authentication is not required for login
-        '/auth/login',
+        'Auth/login',
         data: loginRequest.toJson(),
       );
 
@@ -50,7 +49,8 @@ class LoginController extends GetxController {
         Get.snackbar(
           'Error',
           'Invalid email or password',
-          colorText: Colors.white,
+          colorText: SriTelColor.titleTextColor,
+          backgroundColor: SriTelColor.white,
         );
       }
 
@@ -58,9 +58,8 @@ class LoginController extends GetxController {
       LoginResponse loginResponse = LoginResponse.fromJson(response.body);
 
       final authService = Get.find<AuthService>();
-      authService.setUserEmail(loginResponse.email);
+      authService.setUserInfo(loginResponse);
       authService.setAuthentication(true);
-      authService.updateBearerToken(loginResponse.bearerToken);
 
       return true;
     } catch (e) {

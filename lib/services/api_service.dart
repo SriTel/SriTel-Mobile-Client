@@ -94,7 +94,7 @@ class ApiService extends GetConnect {
   }) async {
     try {
       final response = await get(
-        endpoint,
+        baseUrl + endpoint,
         headers: {
           ...headers ?? {},
           // Keep any existing headers

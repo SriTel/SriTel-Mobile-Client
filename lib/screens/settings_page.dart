@@ -47,7 +47,7 @@ class SettingsPage extends StatelessWidget {
               Button(
                   rightIcon: const Icon(Icons.arrow_forward_ios),
                   type: ButtonType.primary,
-                  buttonText: "Signin",
+                  buttonText: "Sign-Out",
                   onPressed: () => Get.to(() => SignInScreen())),
             ],
           ),

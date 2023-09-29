@@ -1,11 +1,13 @@
 import 'dart:async';
 
+import 'package:SriTel/screens/balance_screen.dart';
 import 'package:SriTel/widgets/banner_slider.dart';
 import 'package:SriTel/widgets/card.dart';
 import 'package:SriTel/widgets/featured_package_widget.dart';
 import 'package:SriTel/widgets/quick_access_widget.dart';
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -82,7 +84,7 @@ class _HomePageState extends State<HomePage> {
                         children: [
                           QuickAccessWidget(
                             label: 'Balance',
-                            onTap: (){},
+                            onTap: () => Get.to(()=> const BalanceScreen()),
                           ),
                           QuickAccessWidget(
                             label: 'Add-On',

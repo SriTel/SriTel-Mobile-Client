@@ -47,29 +47,29 @@ class CardsScreen extends StatelessWidget {
                     ),
                   ))),
               const SizedBox(height: 24),
-              const CustomCard(
-                  type: CardType.datapackage,
-                  showShadow: false,
-                  child: PackageWidget(
-                    packageName: 'Web Starter',
-                    price: 1760,
-                    peekData: 40,
-                    offPeekData: 60,
-                    state: 1,
-                    image: 'cardbackground1'
-                  )),
+              // const CustomCard(
+              //     type: CardType.datapackage,
+              //     showShadow: false,
+              //     child: PackageWidget(
+              //       packageName: 'Web Starter',
+              //       price: 1760,
+              //       peekData: 40,
+              //       offPeekData: 60,
+              //       state: 1,
+              //       image: 'cardbackground1'
+              //     )),
               const SizedBox(height: 24),
-              const CustomCard(
-                  type: CardType.voicepackage,
-                  showShadow: false,
-                  child: PackageWidget(
-                      packageName: 'Call Bluster',
-                      price: 990,
-                      s2sCallMinutes: 500,
-                      anyCallMinutes: 500,
-                      state: 1,
-                      image: 'cardbackground2'
-                  )),
+              // const CustomCard(
+              //     type: CardType.voicepackage,
+              //     showShadow: false,
+              //     child: PackageWidget(
+              //         packageName: 'Call Bluster',
+              //         price: 990,
+              //         s2sCallMinutes: 500,
+              //         anyCallMinutes: 500,
+              //         state: 1,
+              //         image: 'cardbackground2'
+              //     )),
               const SizedBox(height: 24),
               const CustomCard(
                 type: CardType.addon,

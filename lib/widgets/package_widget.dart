@@ -14,7 +14,7 @@ class PackageWidget extends StatelessWidget {
   final dynamic anyCallMinutes;
   final dynamic s2sSMSCount;
   final dynamic anySMSCount;
-  final int state;
+  final bool state;
 
   const PackageWidget({super.key,
     required this.packageName,
@@ -37,7 +37,7 @@ class PackageWidget extends StatelessWidget {
       height: 186,
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage('assets/images/$image.png'), // Replace with your SVG file path
+          image: AssetImage('assets/images/packages/$image'), // Replace with your SVG file path
           fit: BoxFit.cover, // Adjust to your needs (e.g., BoxFit.fill)
         ),
         borderRadius: BorderRadius.circular(20),
@@ -90,7 +90,7 @@ class PackageWidget extends StatelessWidget {
                         const SizedBox(
                           width: 5,
                         ),
-                        state == 1 ?
+                        state ?
                         SvgPicture.asset('assets/images/active-eclipse.svg')
                             : SvgPicture.asset('assets/images/inactive-eclipse.svg')
                       ],

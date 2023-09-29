@@ -1,6 +1,10 @@
+import 'package:SriTel/controllers/auth_controller.dart';
+import 'package:SriTel/controllers/package_controller.dart';
 import 'package:SriTel/controllers/screen_controller.dart';
 import 'package:SriTel/screens/main_page.dart';
 import 'package:SriTel/screens/splash_screen.dart';
+import 'package:SriTel/services/api_service.dart';
+import 'package:SriTel/services/auth_service.dart';
 import 'package:SriTel/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -14,6 +18,7 @@ void main() {
     systemNavigationBarIconBrightness: Brightness.light,
   ));
   runApp(MyApp());
+  Get.put(AuthService());
 }
 
 class MyApp extends StatelessWidget {
@@ -22,9 +27,10 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    // Get.put(MainController());
-    // Get.put(AuthService());
-    // Get.put(ApiService());
+    Get.put(AuthController());
+    Get.put(PackageController());
+    Get.put(ApiService());
+
 
     // Force portrait mode
     SystemChrome.setPreferredOrientations([

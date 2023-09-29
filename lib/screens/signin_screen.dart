@@ -1,3 +1,4 @@
+import 'package:SriTel/controllers/auth_controller.dart';
 import 'package:SriTel/screens/main_page.dart';
 import 'package:SriTel/screens/forget_password_screen.dart';
 import 'package:SriTel/screens/signup_screen.dart';
@@ -10,8 +11,7 @@ import 'package:get/get.dart';
 
 class SignInScreen extends StatelessWidget {
   SignInScreen({super.key});
-  final TextEditingController mobileNumberController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+  final AuthController controller = Get.put(AuthController());
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +44,7 @@ class SignInScreen extends StatelessWidget {
                   ),
                   InputField(
                     labelText: 'Mobile Number',
-                    controller: mobileNumberController,
+                    controller: controller.emailController,
                     type: InputType.noTitle,
                   ),
                   const SizedBox(
@@ -52,7 +52,7 @@ class SignInScreen extends StatelessWidget {
                   ),
                   InputField(
                     labelText: 'Password',
-                    controller: passwordController,
+                    controller: controller.passwordController,
                     type: InputType.noTitle,
                     obscureText: true,
                   ),
@@ -61,7 +61,26 @@ class SignInScreen extends StatelessWidget {
                   ),
                   Button(
                       buttonText: "Login",
-                      onPressed: () => Get.to(() => const MainPage())),
+                      onPressed: () => {
+                        controller.login().then((value) {
+                          print(value);
+                          if (value) {
+                            Get.offAll(() => const MainPage());
+                            Get.snackbar(
+                              icon: const Icon(
+                                Icons.check_circle,
+                                size: 26,
+                                color: SriTelColor.primaryColor,
+                              ),
+                              shouldIconPulse: true,
+                              "Success",
+                              "Welcome to SriTel",
+                              colorText: SriTelColor.titleTextColor,
+                              backgroundColor: SriTelColor.white,
+                            );
+                          }
+                        })
+                      }),
                   const SizedBox(
                     height: 10,
                   ),
