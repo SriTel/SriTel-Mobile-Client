@@ -39,9 +39,10 @@ class PackageWidget extends StatelessWidget {
       width: 296,
       height: 186,
       decoration: BoxDecoration(
+        color: Colors.black,
         image: DecorationImage(
           image: AssetImage('assets/images/packages/$image'), // Replace with your SVG file path
-          fit: BoxFit.cover, // Adjust to your needs (e.g., BoxFit.fill)
+          fit: BoxFit.fill, // Adjust to your needs (e.g., BoxFit.fill)
         ),
         borderRadius: BorderRadius.circular(20),
       ),
