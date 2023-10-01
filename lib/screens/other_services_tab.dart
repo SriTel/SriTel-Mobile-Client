@@ -53,7 +53,7 @@ class _OtherServicesTabState extends State<OtherServicesTab> {
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.symmetric(horizontal: 24.0),
           child: CustomCard(
             type: CardType.light,
             child: Padding(

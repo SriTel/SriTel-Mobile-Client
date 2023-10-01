@@ -71,40 +71,40 @@ class CardsScreen extends StatelessWidget {
               //         image: 'cardbackground2'
               //     )),
               const SizedBox(height: 24),
-              const CustomCard(
-                type: CardType.addon,
-                showShadow: false,
-                child: AddOnWidget(
-                    packageName: 'Zoom+Teams',
-                    price: 150,
-                    image: 'cardbackground3',
-                    data: 30,
-                ),
-              ),
+              // const CustomCard(
+              //   type: CardType.addon,
+              //   showShadow: false,
+              //   child: AddOnWidget(
+              //       packageName: 'Zoom+Teams',
+              //       price: 150,
+              //       image: 'cardbackground3',
+              //       data: 30,
+              //   ),
+              // ),
               const SizedBox(height: 24),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 padding: EdgeInsets.symmetric(vertical: 10),
                 child: Row(
                   children: [
-                    CustomCard(
-                      type: CardType.extragb1,
-                      child: ExtraGBWidget(data: 1, price: 100, onTap: (){}),
-                    ),
-                    const SizedBox(
-                      width: 9,
-                    ),
-                    CustomCard(
-                      type: CardType.extragb2,
-                      child: ExtraGBWidget(data: 6, price: 200, onTap: (){}),
-                    ),
-                    const SizedBox(
-                      width: 9,
-                    ),
-                    CustomCard(
-                      type: CardType.extragb3,
-                      child: ExtraGBWidget(data: 10, price: 300, onTap: (){}),
-                    ),
+                    // CustomCard(
+                    //   type: CardType.extragb1,
+                    //   child: ExtraGBWidget(data: 1, price: 100, onTap: (){}),
+                    // ),
+                    // const SizedBox(
+                    //   width: 9,
+                    // ),
+                    // CustomCard(
+                    //   type: CardType.extragb2,
+                    //   child: ExtraGBWidget(data: 6, price: 200, onTap: (){}),
+                    // ),
+                    // const SizedBox(
+                    //   width: 9,
+                    // ),
+                    // CustomCard(
+                    //   type: CardType.extragb3,
+                    //   child: ExtraGBWidget(data: 10, price: 300, onTap: (){}),
+                    // ),
                   ],
                 ),
               ),

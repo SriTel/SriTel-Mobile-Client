@@ -16,11 +16,14 @@ class PackageTab extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'Data Packages',
-            style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 16
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 24.0),
+            child: Text(
+              'Data Packages',
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16
+              ),
             ),
           ),
           const SizedBox(height: 10,),
@@ -29,6 +32,9 @@ class PackageTab extends StatelessWidget {
             child:
             Obx(()=>Row(
               children: [
+                const SizedBox(
+                  width: 24,
+                ),
                 for (var package in _packageController.packages)
                   if(package.type == PackageType.data)
                     Padding(
@@ -50,11 +56,14 @@ class PackageTab extends StatelessWidget {
             )),
           ),
           const SizedBox(height: 10,),
-          const Text(
-            'Voice Packages',
-            style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 16
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 24.0),
+            child: Text(
+              'Voice Packages',
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16
+              ),
             ),
           ),
           const SizedBox(height: 10,),
@@ -64,6 +73,9 @@ class PackageTab extends StatelessWidget {
             Obx(
                 () => Row(
                   children: [
+                    const SizedBox(
+                      width: 24,
+                    ),
                     for (var package in _packageController.packages)
                       if(package.type == PackageType.voice)
                         Padding(
@@ -86,11 +98,14 @@ class PackageTab extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 10,),
-          const Text(
-            'Learn Packages',
-            style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 16
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 24.0),
+            child: Text(
+              'Learn Packages',
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16
+              ),
             ),
           ),
           const SizedBox(height: 10,),
@@ -100,6 +115,9 @@ class PackageTab extends StatelessWidget {
             Obx(
                 () => Row(
                   children: [
+                    const SizedBox(
+                      width: 24,
+                    ),
                     for (var package in _packageController.packages)
                       if(package.type == PackageType.other)
                         Padding(

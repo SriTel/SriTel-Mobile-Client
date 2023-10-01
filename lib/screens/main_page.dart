@@ -1,3 +1,4 @@
+import 'package:SriTel/controllers/addon_controller.dart';
 import 'package:SriTel/controllers/auth_controller.dart';
 import 'package:SriTel/controllers/package_controller.dart';
 import 'package:SriTel/controllers/service_controller.dart';
@@ -28,6 +29,7 @@ class _ComponentsScreenState extends State<MainPage> {
   final AuthService _authService = Get.find();
   final PackageController _packageController = Get.find();
   final ServiceController _serviceController = Get.find();
+  final AddOnController _addOnController = Get.find();
 
   @override
   void initState() {
@@ -36,6 +38,7 @@ class _ComponentsScreenState extends State<MainPage> {
     // Your initialization code or method invocation goes here
     _packageController.initializeState();
     _serviceController.initializeState();
+    _addOnController.initializeState();
   }
 
   @override

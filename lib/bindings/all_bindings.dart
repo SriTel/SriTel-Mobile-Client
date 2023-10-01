@@ -1,3 +1,4 @@
+import 'package:SriTel/controllers/addon_controller.dart';
 import 'package:SriTel/controllers/auth_controller.dart';
 import 'package:SriTel/controllers/package_controller.dart';
 import 'package:SriTel/controllers/service_controller.dart';
@@ -12,6 +13,7 @@ class AllBindings implements Bindings{
     Get.put<AuthController>(AuthController());
     Get.put<PackageController>(PackageController());
     Get.put<ServiceController>(ServiceController());
+    Get.put<AddOnController>(AddOnController());
 
   }
 }
