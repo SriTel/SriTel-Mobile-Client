@@ -26,7 +26,7 @@ class SplashScreenState extends State<SplashScreen> {
   _navigateToHome() async {
     await Future.delayed(const Duration(milliseconds: 2000), (){});
     _screenController.isSplashScreenSeen.value = true;
-    Get.to(SignInScreen(), duration: const Duration(milliseconds: 1000),transition: Transition.native);
+    Get.to(() => SignInScreen(), duration: const Duration(milliseconds: 1000),transition: Transition.native);
   }
 
   @override

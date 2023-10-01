@@ -8,6 +8,7 @@ import '../services/auth_service.dart';
 
 class AuthController extends GetxController {
   final ApiService _apiService = ApiService();
+  final AuthService _authService = Get.find();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final RxBool isLoginLoading = false.obs;
@@ -23,7 +24,6 @@ class AuthController extends GetxController {
       );
       return false;
     }
-
     isLoginLoading.value = true;
 
     LoginRequest loginRequest = LoginRequest(
@@ -31,10 +31,11 @@ class AuthController extends GetxController {
     try {
       final response = await _apiService.sendPostRequest(
         false, // Authentication is not required for login
-        'Auth/login',
+        'auth/login',
         data: loginRequest.toJson(),
       );
-
+      print(response!.statusCode);
+      print(response.body);
       isLoginLoading.value = false;
 
       if (response == null) {
@@ -53,14 +54,10 @@ class AuthController extends GetxController {
           backgroundColor: SriTelColor.white,
         );
       }
-
       // Assuming the response contains authentication-related data
       LoginResponse loginResponse = LoginResponse.fromJson(response.body);
-
-      final authService = Get.find<AuthService>();
-      authService.setUserInfo(loginResponse);
-      authService.setAuthentication(true);
-
+      await _authService.setUserInfo(loginResponse);
+      await _authService.setAuthentication(true);
       return true;
     } catch (e) {
       return false;

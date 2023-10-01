@@ -1,4 +1,5 @@
 class LoginResponse{
+  int id;
   String firstName;
   String lastName;
   String mobileNumber;
@@ -8,6 +9,7 @@ class LoginResponse{
   String jwtToken;
 
   LoginResponse({
+    required this.id,
     required this.firstName,
     required this.lastName,
     required this.mobileNumber,
@@ -18,7 +20,8 @@ class LoginResponse{
   });
 
   factory LoginResponse.fromJson(Map<String, dynamic> json) => LoginResponse(
-  firstName: json["firstName"],
+    id: json["id"],
+    firstName: json["firstName"],
       lastName: json["lastName"],
       mobileNumber: json["mobileNumber"],
       email: json["email"],
@@ -28,6 +31,7 @@ class LoginResponse{
   );
 
   Map<String, dynamic> toJson() => {
+    "id": id,
     "firstName" : firstName,
     "lastName" : lastName,
     "mobileNumber" : mobileNumber,

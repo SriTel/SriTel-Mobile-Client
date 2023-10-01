@@ -17,6 +17,7 @@ class Button extends StatelessWidget {
   final Icon? leftIcon;
   final Icon? rightIcon;
   final bool showBorder;
+  final Color backgroundColor;
 
   const Button({
     super.key,
@@ -32,6 +33,7 @@ class Button extends StatelessWidget {
     this.iconSize = 21,
     this.borderColor = SriTelColor.lightWhite,
     this.color = SriTelColor.white,
+    this.backgroundColor = SriTelColor.primaryColor,
     this.showBorder = false,
   });
 
@@ -53,11 +55,7 @@ class Button extends StatelessWidget {
             height: height,
             clipBehavior: Clip.antiAlias,
             decoration: ShapeDecoration(
-              color: type == ButtonType.primary
-                    ? SriTelColor.primaryColor
-                    : type == ButtonType.primaryColor
-                        ? SriTelColor.lighterBlack
-                        : SriTelColor.secondaryColor,
+              color: backgroundColor,
               shape: RoundedRectangleBorder(
                 side: showBorder
                     ? BorderSide(

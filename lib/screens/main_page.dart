@@ -1,4 +1,6 @@
+import 'package:SriTel/controllers/auth_controller.dart';
 import 'package:SriTel/controllers/package_controller.dart';
+import 'package:SriTel/controllers/service_controller.dart';
 import 'package:SriTel/screens/bill_page.dart';
 import 'package:SriTel/screens/chat_screen.dart';
 import 'package:SriTel/screens/home_page.dart';
@@ -25,13 +27,15 @@ class _ComponentsScreenState extends State<MainPage> {
   final PageController _pageController = PageController(initialPage: 2);
   final AuthService _authService = Get.find();
   final PackageController _packageController = Get.find();
+  final ServiceController _serviceController = Get.find();
 
   @override
   void initState() {
     super.initState();
 
     // Your initialization code or method invocation goes here
-    _packageController.fetchPackages();
+    _packageController.initializeState();
+    _serviceController.initializeState();
   }
 
   @override
@@ -62,36 +66,36 @@ class _ComponentsScreenState extends State<MainPage> {
                   decoration: const BoxDecoration(
                     shape: BoxShape.circle,
                   ),
-                  child: Obx(() => ClipOval(
-                        child: Image.asset(
+                  child: ClipOval(
+                        child: Obx(() => Image.asset(
                           'assets/images/${_authService.getProfileImage()}',
                           fit: BoxFit.cover,
-                        ),
-                      ))
+                        )),
+                      )
                 ),
                 const SizedBox(
                   width: 10,
                 ),
-                Obx(()=>Column(
+                Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    Obx(()=>Text(
                       _authService.getMobileNumber(),
                       style: const TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.bold
                       ),
-                    ),
-                    Text(
+                    )),
+                    Obx(()=>Text(
                       _authService.getFullName(),
                       style: const TextStyle(
                           fontSize: 14,
                           color: SriTelColor.grey
                       ),
-                    )
+                    ))
                   ],
-                ))
+                )
               ],
             ),
             IconButton(

@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 
 class PackageTab extends StatelessWidget {
   PackageTab({super.key});
-  PackageController _packageController = Get.find();
+  final PackageController _packageController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -37,11 +37,11 @@ class PackageTab extends StatelessWidget {
                       type: CardType.datapackage,
                       showShadow: false,
                       child: PackageWidget(
+                        id: package.id,
                         packageName: package.name,
                         price: package.charge,
                         peekData: package.peekData,
                         offPeekData: package.offPeekData,
-                        state: _packageController.isAnActivePackage(package.id),
                         image: package.image,
                       ),
                     ),
@@ -72,11 +72,11 @@ class PackageTab extends StatelessWidget {
                             type: CardType.voicepackage,
                             showShadow: false,
                             child: PackageWidget(
+                              id: package.id,
                               packageName: package.name,
                               price: package.charge,
                               s2sCallMinutes: package.s2SCallMins,
                               anyCallMinutes: package.anyNetCallMins,
-                              state: _packageController.isAnActivePackage(package.id),
                               image: package.image,
                             ),
                           ),
@@ -108,11 +108,11 @@ class PackageTab extends StatelessWidget {
                             type: CardType.voicepackage,
                             showShadow: false,
                             child: PackageWidget(
+                              id: package.id,
                               packageName: package.name,
                               price: package.charge,
                               s2sSMSCount: package.s2SSmsCount,
                               anySMSCount: package.anyNetSmsCount,
-                              state: _packageController.isAnActivePackage(package.id),
                               image: package.image,
                             ),
                           ),

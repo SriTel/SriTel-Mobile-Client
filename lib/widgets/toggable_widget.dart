@@ -6,7 +6,7 @@ import 'package:getwidget/types/gf_toggle_type.dart';
 class ToggableWidget extends StatelessWidget {
   final String title;
   final bool state;
-  final Function() onPressed;
+  final void Function(bool?) onPressed;
   const ToggableWidget({super.key, required this.title, required this.state, required this.onPressed});
 
   @override
@@ -25,9 +25,7 @@ class ToggableWidget extends StatelessWidget {
             ),
           ),
           GFToggle(
-            onChanged: (val){
-              onPressed();
-            },
+            onChanged: onPressed,
             value: state,
             enabledThumbColor:SriTelColor.white,
             enabledTrackColor: SriTelColor.primaryColor,

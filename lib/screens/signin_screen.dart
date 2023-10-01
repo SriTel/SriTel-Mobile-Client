@@ -11,7 +11,7 @@ import 'package:get/get.dart';
 
 class SignInScreen extends StatelessWidget {
   SignInScreen({super.key});
-  final AuthController controller = Get.put(AuthController());
+  final AuthController authController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +44,7 @@ class SignInScreen extends StatelessWidget {
                   ),
                   InputField(
                     labelText: 'Mobile Number',
-                    controller: controller.emailController,
+                    controller: authController.emailController,
                     type: InputType.noTitle,
                   ),
                   const SizedBox(
@@ -52,7 +52,7 @@ class SignInScreen extends StatelessWidget {
                   ),
                   InputField(
                     labelText: 'Password',
-                    controller: controller.passwordController,
+                    controller: authController.passwordController,
                     type: InputType.noTitle,
                     obscureText: true,
                   ),
@@ -62,8 +62,7 @@ class SignInScreen extends StatelessWidget {
                   Button(
                       buttonText: "Login",
                       onPressed: () => {
-                        controller.login().then((value) {
-                          print(value);
+                        authController.login().then((value) {
                           if (value) {
                             Get.offAll(() => const MainPage());
                             Get.snackbar(
@@ -76,7 +75,6 @@ class SignInScreen extends StatelessWidget {
                               "Success",
                               "Welcome to SriTel",
                               colorText: SriTelColor.titleTextColor,
-                              backgroundColor: SriTelColor.white,
                             );
                           }
                         })

@@ -181,7 +181,7 @@ class CardsScreen extends StatelessWidget {
               ToggableWidget(
                 title: 'Roaming (Voice/Data)',
                 state: false,
-                onPressed: ()=>{},
+                onPressed: (bool)=>{},
               ),
               const SizedBox(height: 24),
               TuneWidget(

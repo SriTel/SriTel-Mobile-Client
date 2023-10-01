@@ -8,8 +8,12 @@ class AuthService extends GetxService {
   final RxString email = ''.obs;
   final RxBool isAuthenticated = false.obs;
   String _bearerToken = ''; // Store the bearer token
-
+  var name = "".obs;
   SharedPreferences? _prefs;
+
+  void meth(String n){
+    name = n.obs;
+  }
 
   Future<void> init() async {
     _prefs = await SharedPreferences.getInstance();
@@ -21,6 +25,10 @@ class AuthService extends GetxService {
 
   String getBearerToken() {
     return _bearerToken;
+  }
+
+  int getUserId() {
+    return (user != null) ? user!.value.id : 0;
   }
 
   String getFullName(){
@@ -45,8 +53,9 @@ class AuthService extends GetxService {
     _prefs?.setString('email', newEmail);
   }
 
-  void setUserInfo(LoginResponse loginResponse){
+  Future<void> setUserInfo(LoginResponse loginResponse) async{
     user = User(
+      id: loginResponse.id,
       firstName: loginResponse.firstName,
       lastName: loginResponse.lastName,
       email: loginResponse.email,
@@ -58,7 +67,7 @@ class AuthService extends GetxService {
     updateBearerToken(loginResponse.jwtToken);
   }
 
-  void setAuthentication(bool value) {
+  Future<void> setAuthentication(bool value) async {
     isAuthenticated.value = value;
     _prefs?.setBool('isAuthenticated', value);
   }

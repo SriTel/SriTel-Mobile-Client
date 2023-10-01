@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:SriTel/controllers/service_controller.dart';
 import 'package:SriTel/models/planet.dart';
 import 'package:SriTel/theme/colors.dart';
 import 'package:SriTel/theme/fonts.dart';
@@ -13,42 +14,24 @@ import 'package:get/get.dart';
 enum BottomSheetInitiatorType {fromButton, toButton, departureTime, arrivalTime}
 
 class BottomSheetPanel extends StatefulWidget {
-  final TextEditingController controller;
-  // final BookingFilterController _bookingFilterController = Get.find();
-  final BottomSheetInitiatorType initiator;
-  const BottomSheetPanel({super.key, required this.controller, required this.initiator});
+  final Function(String) onClose;
+  const BottomSheetPanel({super.key, this.onClose = _defaultOnClose});
+
+  // Define a default constant function
+  static void _defaultOnClose(String tone) {
+  }
 
   @override
   State<BottomSheetPanel> createState() => _BottomSheetPanelState();
 }
 
 class _BottomSheetPanelState extends State<BottomSheetPanel> {
-  // final BookingFilterController _bookingFilterController = Get.find();
-  // List<Planet> _travelLocations = [];
-  // filter method
-  // List<Planet> filterSpaceports(String input) {
-  //   final lowerCaseInput = input.toLowerCase();
-  //   return _bookingFilterController.planets.where((spaceport) {
-  //     final lowerCasePlanetName = spaceport.planetName.toLowerCase();
-  //     final lowerCasePortName = spaceport.planetDescription.toLowerCase();
-  //     // uncomment if you want to filter the spaceport as well
-  //     // return lowerCasePlanetName.contains(lowerCaseInput) ||
-  //     //     lowerCasePortName.contains(lowerCaseInput);
-  //     return lowerCasePlanetName.contains(lowerCaseInput);
-  //   }).toList();
-  // }
-  List<String> tunes = [
-    'Alone - Alan Walkers',
-    'Darkside - Alan Walker',
-    'Faded - Alan Walker',
-    'The Spectre - Alan Walkers',
-    'Sing me to sleep - Alan Walkers',
-  ];
+
+  final TextEditingController searchTextController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    // _travelLocations = _bookingFilterController.planets;
   }
 
   @override
@@ -83,55 +66,55 @@ class _BottomSheetPanelState extends State<BottomSheetPanel> {
               InputField(
                 type: InputType.noTitle,
                 labelText: 'Search Tunes ...',
-                controller: widget.controller,
+                controller: searchTextController,
                 onChanged: (input){
                   setState(() {
-                    // _travelLocations = filterSpaceports(input);
+                    Get.find<ServiceController>().updateSongVisibility(input);
                   });
                 },
               ),
               const SizedBox(height: 16),
               Expanded(
-                child: ListView.builder(
-                  itemCount: 5,
+                child: Obx(() => ListView.builder(
+                  itemCount: Get.find<ServiceController>().tunes.length,
                   itemBuilder: (context, index) {
                     return Visibility(
                       visible: true,
                       child: Column(
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: ElevatedButton(
-                            style: ButtonStyle(
-                              elevation: MaterialStateProperty.all<double?>(0),
-                              backgroundColor: MaterialStateProperty.all<
-                                      Color>(
-                                  SriTelColor.white),
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: ElevatedButton(
+                              style: ButtonStyle(
+                                elevation: MaterialStateProperty.all<double?>(0),
+                                backgroundColor: MaterialStateProperty.all<
+                                    Color>(
+                                    SriTelColor.white),
+                              ),
+                              onPressed: () {
+                                final serviceController = Get.find<ServiceController>();
+                                serviceController.changeRingingTone(serviceController.tunes[index].song);
+                              },
+                              child: TuneWidget(
+                                tuneName: Get.find<ServiceController>().tunes[index].song,
+                                onPressed: () {
+                                  widget.onClose(Get.find<ServiceController>().tunes[index].song);
+                                  // final serviceController = Get.find<ServiceController>();
+                                  // serviceController.changeRingingTone(serviceController.tunes[index].song);
+                                  Get.back();
+                                },
+                              ),
                             ),
-                            onPressed: () {
-                              // Handle the item click here.
-                              // _bookingFilterController.changePlanet(widget.initiator,
-                              //     _bookingFilterController.planets[index]);
-                              // Navigator.pop(context);
-                            },
-                            child: TuneWidget(
-                              tuneName: tunes[index],
-                              onPressed: ()=>{},
-                            ),
-                            // child: SpacePort(
-                            //     travelLocation:
-                            //     _bookingFilterController.planets[index]),
                           ),
-                        ),
-                        Divider(
+                          const Divider(
                             color: SriTelColor.lightGrey,
                             thickness: 2,
-                        ),
-                      ],
-                    ),
+                          ),
+                        ],
+                      ),
                     );
                   },
-                ),
+                )),
               ),
             ],
           ),

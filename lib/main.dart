@@ -1,3 +1,4 @@
+import 'package:SriTel/bindings/all_bindings.dart';
 import 'package:SriTel/controllers/auth_controller.dart';
 import 'package:SriTel/controllers/package_controller.dart';
 import 'package:SriTel/controllers/screen_controller.dart';
@@ -18,19 +19,15 @@ void main() {
     systemNavigationBarIconBrightness: Brightness.light,
   ));
   runApp(MyApp());
-  Get.put(AuthService());
 }
 
 class MyApp extends StatelessWidget {
   MyApp({super.key});
   final ScreenController _screenController = Get.put(ScreenController());
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    Get.put(AuthController());
-    Get.put(PackageController());
-    Get.put(ApiService());
-
 
     // Force portrait mode
     SystemChrome.setPreferredOrientations([
@@ -46,6 +43,7 @@ class MyApp extends StatelessWidget {
     ));
 
     return GetMaterialApp(
+      initialBinding: AllBindings(),
       debugShowCheckedModeBanner: false,
       title: 'SriTel',
       theme: AppTheme.lightTheme,
