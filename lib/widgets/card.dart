@@ -40,7 +40,7 @@ class CustomCard extends StatelessWidget {
         gradient: LinearGradient(
           colors: type == CardType.light
               ? SriTelColor.lightGradient
-                : SriTelColor.getRandomGradient(type),
+                : SriTelColor.lightGradient,
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),

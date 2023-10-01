@@ -28,7 +28,7 @@ class AddOnWidget extends StatelessWidget {
       height: 186,
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage('assets/images/$image'), // Replace with your SVG file path
+          image: AssetImage('assets/images/packages/$image'), // Replace with your SVG file path
           fit: BoxFit.cover, // Adjust to your needs (e.g., BoxFit.fill)
         ),
         borderRadius: BorderRadius.circular(20),
