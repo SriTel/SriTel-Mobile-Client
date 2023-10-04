@@ -45,7 +45,7 @@ class PackageController extends GetxController{
 
       // get packages list and map them
       final List<dynamic> jsonResponse = response.body;
-      packages = jsonResponse.map((data) => Package.fromJson(data)).toList().obs;
+      packages.assignAll(jsonResponse.map((data) => Package.fromJson(data)).toList());
       packages.sort((a, b) => a.charge.compareTo(b.charge));
       update();
     } catch (e) {
@@ -110,7 +110,76 @@ class PackageController extends GetxController{
       final dynamic responseBody = response.body;
       final List<int> jsonResponse = List<int>.from(responseBody);
       activePackageIds = jsonResponse.toSet().obs;
+      update();
+    } catch (e) {
+      rethrow;
+    }
+  }
 
+  // get activated package ids
+  Future<void> useDataPackage() async {
+    try {
+      final response = await _apiService.sendGetRequest(
+        true, // Authentication is not required for login
+        'package/use/data/${_authService.getUserId()}',
+      );
+      isLoginLoading.value = false;
+
+      if (response.statusCode != 200 && response.statusCode != 201) {
+        Get.snackbar(
+          'Error',
+          'Could\'t perform the task. Retry again!',
+          colorText: SriTelColor.titleTextColor,
+        );
+        return;
+      }
+      update();
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  // get activated package ids
+  Future<void> useVoicePackageCalls() async {
+    try {
+      final response = await _apiService.sendGetRequest(
+        true, // Authentication is not required for login
+        'package/use/voice/call/${_authService.getUserId()}',
+      );
+      isLoginLoading.value = false;
+
+      if (response.statusCode != 200 && response.statusCode != 201) {
+        Get.snackbar(
+          'Error',
+          'Could\'t perform the task. Retry again!',
+          colorText: SriTelColor.titleTextColor,
+        );
+        return;
+      }
+      update();
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  // get activated package ids
+  Future<void> useVoicePackageSms() async {
+    try {
+      final response = await _apiService.sendGetRequest(
+        true, // Authentication is not required for login
+        'package/use/voice/sms/${_authService.getUserId()}',
+      );
+      isLoginLoading.value = false;
+
+      if (response.statusCode != 200 && response.statusCode != 201) {
+        Get.snackbar(
+          'Error',
+          'Could\'t perform the task. Retry again!',
+          colorText: SriTelColor.titleTextColor,
+        );
+        return;
+      }
+      update();
     } catch (e) {
       rethrow;
     }

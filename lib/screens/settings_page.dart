@@ -1,3 +1,4 @@
+import 'package:SriTel/controllers/package_controller.dart';
 import 'package:SriTel/screens/buttons_screen.dart';
 import 'package:SriTel/screens/cards_screen.dart';
 import 'package:SriTel/screens/chat_widget_screen.dart';
@@ -8,13 +9,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class SettingsPage extends StatelessWidget {
-  const SettingsPage({super.key});
+  SettingsPage({super.key});
+  final PackageController _packageController = Get.find();
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
-        padding: EdgeInsets.all(24),
+        padding: const EdgeInsets.all(24),
         child: Center(
           child: Column(
             children: [
@@ -43,6 +45,24 @@ class SettingsPage extends StatelessWidget {
                   type: ButtonType.primary,
                   buttonText: "Chat Fields",
                   onPressed: () => Get.to(() => const ChatWidgetScreen())),
+              const SizedBox(height: 24),
+              Button(
+                  rightIcon: const Icon(Icons.arrow_forward_ios),
+                  type: ButtonType.primary,
+                  buttonText: "Use Data",
+                  onPressed: () => _packageController.useDataPackage()),
+              const SizedBox(height: 24),
+              Button(
+                  rightIcon: const Icon(Icons.arrow_forward_ios),
+                  type: ButtonType.primary,
+                  buttonText: "Use Call",
+                  onPressed: () => _packageController.useVoicePackageCalls()),
+              const SizedBox(height: 24),
+              Button(
+                  rightIcon: const Icon(Icons.arrow_forward_ios),
+                  type: ButtonType.primary,
+                  buttonText: "Use Sms",
+                  onPressed: () => _packageController.useVoicePackageSms()),
               const SizedBox(height: 24),
               Button(
                   rightIcon: const Icon(Icons.arrow_forward_ios),

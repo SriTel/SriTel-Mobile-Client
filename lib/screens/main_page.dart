@@ -1,6 +1,9 @@
 import 'package:SriTel/controllers/addon_controller.dart';
 import 'package:SriTel/controllers/auth_controller.dart';
+import 'package:SriTel/controllers/balance_controller.dart';
+import 'package:SriTel/controllers/bill_controller.dart';
 import 'package:SriTel/controllers/package_controller.dart';
+import 'package:SriTel/controllers/payment_controller.dart';
 import 'package:SriTel/controllers/service_controller.dart';
 import 'package:SriTel/screens/bill_page.dart';
 import 'package:SriTel/screens/chat_screen.dart';
@@ -30,6 +33,9 @@ class _ComponentsScreenState extends State<MainPage> {
   final PackageController _packageController = Get.find();
   final ServiceController _serviceController = Get.find();
   final AddOnController _addOnController = Get.find();
+  final BillController _billController = Get.find();
+  final PaymentController _paymentController = Get.find();
+  final BalanceController _balanceController = Get.find();
 
   @override
   void initState() {
@@ -39,6 +45,9 @@ class _ComponentsScreenState extends State<MainPage> {
     _packageController.initializeState();
     _serviceController.initializeState();
     _addOnController.initializeState();
+    _billController.initializeState();
+    _paymentController.initializeState();
+    _balanceController.initializeState();
   }
 
   @override
@@ -102,7 +111,7 @@ class _ComponentsScreenState extends State<MainPage> {
               ],
             ),
             IconButton(
-                onPressed: () => Get.to(() => ChatScreen()),
+                onPressed: () => Get.to(() => ChatScreen(), transition: Transition.rightToLeft),
                 icon: const Icon(Iconsax.messages_2)
             ),
           ],
@@ -119,7 +128,7 @@ class _ComponentsScreenState extends State<MainPage> {
           const ServicesPage(),
           const HomePage(),
           const NotificationsPage(),
-          const SettingsPage(),
+          SettingsPage(),
         ],
         onPageChanged: (index) {
           setState(() {

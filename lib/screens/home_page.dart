@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:SriTel/controllers/balance_controller.dart';
 import 'package:SriTel/screens/balance_screen.dart';
 import 'package:SriTel/widgets/banner_slider.dart';
 import 'package:SriTel/widgets/card.dart';
@@ -18,6 +19,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final CarouselController _carouselController = CarouselController();
+  final BalanceController _balanceController = Get.find();
   int _currentBannerIndex = 0;
 
   void startAutoSlide() {
@@ -84,7 +86,11 @@ class _HomePageState extends State<HomePage> {
                         children: [
                           QuickAccessWidget(
                             label: 'Balance',
-                            onTap: () => Get.to(()=> const BalanceScreen()),
+                            onTap: (){
+                              _balanceController.fetchDataBalance();
+                              _balanceController.fetchVoiceBalance();
+                            Get.to(() => BalanceScreen());
+                            },
                           ),
                           QuickAccessWidget(
                             label: 'Add-On',

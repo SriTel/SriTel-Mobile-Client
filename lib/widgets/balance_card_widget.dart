@@ -1,3 +1,4 @@
+import 'package:SriTel/models/usage.dart';
 import 'package:SriTel/theme/colors.dart';
 import 'package:SriTel/widgets/card.dart';
 import 'package:flutter/material.dart';
@@ -6,50 +7,42 @@ import 'package:percent_indicator/percent_indicator.dart';
 enum BalanceType { data, voices2s, voiceAny, addon, extraGb, smss2s, smsAny}
 
 class BalanceCardWidget extends StatelessWidget {
-  final BalanceType type;
+  final String title;
+  final UnitOfMeasure unit;
   final double totalAmount;
   final double usage;
-  const BalanceCardWidget({super.key, required this.type, required this.totalAmount, required this.usage});
-
-  String _cardTitle(){
-    if(type == BalanceType.data) return "Data";
-    if(type == BalanceType.addon) return "Add-On";
-    if(type == BalanceType.extraGb) return "Extra-GB";
-    if(type == BalanceType.smss2s) return "S2S SMS";
-    if(type == BalanceType.smsAny) return "Any SMS";
-    if(type == BalanceType.voices2s) return "S2S Voice Minutes";
-    return "Any Voice Minutes";
-  }
+  const BalanceCardWidget({super.key,required this.title, required this.unit, required this.totalAmount, required this.usage});
   @override
   Widget build(BuildContext context) {
     return CustomCard(
       type: CardType.light,
       child: Padding(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.only(top: 16, bottom: 0, left: 10, right: 10),
         child: SizedBox(
-          height: 280,
-          width: 270,
+          height: 260,
+          width: 220,
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Text(
-                _cardTitle(),
+                title,
                 style: const TextStyle(
                     fontSize: 20,
                     color: SriTelColor.titleTextColor,
                     fontWeight: FontWeight.bold
                 ),
               ),
-              const SizedBox(height: 10,),
+              const SizedBox(height: 16,),
               CircularPercentIndicator(
-                radius: 100,
-                lineWidth: 15,
+                radius: 80,
+                lineWidth: 13,
                 percent: ((totalAmount-usage)/totalAmount),
-                progressColor: type == BalanceType.data || type == BalanceType.addon || type == BalanceType.extraGb ? SriTelColor.primaryColor
-                    : type == BalanceType.voiceAny || type == BalanceType.voices2s ? Colors.deepOrangeAccent
-                    :  Colors.pinkAccent,
-                backgroundColor: type == BalanceType.data || type == BalanceType.addon || type == BalanceType.extraGb ? SriTelColor.primaryColor.withOpacity(0.2)
-                    : type == BalanceType.voiceAny || type == BalanceType.voices2s ? Colors.deepOrangeAccent.withOpacity(0.2)
-                    :  Colors.pinkAccent.withOpacity(0.2),
+                progressColor: unit == UnitOfMeasure.Gb ? SriTelColor.primaryColor
+                    : unit == UnitOfMeasure.Minutes ? Colors.deepOrangeAccent
+                    : Colors.pinkAccent,
+                backgroundColor: unit == UnitOfMeasure.Gb ? SriTelColor.primaryColor.withOpacity(0.2)
+                    : unit == UnitOfMeasure.Minutes ? Colors.deepOrangeAccent.withOpacity(0.2)
+                    : Colors.pinkAccent.withOpacity(0.2),
                 circularStrokeCap: CircularStrokeCap.round,
                 center: SizedBox(
                   height: 75,
@@ -65,15 +58,13 @@ class BalanceCardWidget extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Text(
-                                  type == BalanceType.data
-                                    || type == BalanceType.addon
-                                    || type == BalanceType.extraGb ? (totalAmount-usage).toStringAsFixed(1)
+                                  unit == UnitOfMeasure.Gb ? (totalAmount-usage).toStringAsFixed(1)
                                     : (totalAmount-usage).toStringAsFixed(0),
                                   style: TextStyle(
-                                    fontSize: 30,
-                                    color: type == BalanceType.data || type == BalanceType.addon || type == BalanceType.extraGb ? SriTelColor.primaryColor
-                                        : type == BalanceType.voiceAny || type == BalanceType.voices2s ? Colors.deepOrangeAccent
-                                        :  Colors.pinkAccent,
+                                    fontSize: 22,
+                                    color: unit == UnitOfMeasure.Gb ? SriTelColor.primaryColor
+                                        : unit == UnitOfMeasure.Minutes ? Colors.deepOrangeAccent
+                                        : Colors.pinkAccent,
                                     fontWeight: FontWeight.bold
                                   ),
                                 ),
@@ -82,20 +73,18 @@ class BalanceCardWidget extends StatelessWidget {
                             Text(
                               '/',
                               style: TextStyle(
-                                  fontSize: 46,
-                                  color: type == BalanceType.data || type == BalanceType.addon || type == BalanceType.extraGb ? SriTelColor.primaryColor
-                                      : type == BalanceType.voiceAny || type == BalanceType.voices2s ? Colors.deepOrangeAccent
-                                      :  Colors.pinkAccent,
+                                  fontSize: 32,
+                                  color: unit == UnitOfMeasure.Gb ? SriTelColor.primaryColor
+                                      : unit == UnitOfMeasure.Minutes ? Colors.deepOrangeAccent
+                                      : Colors.pinkAccent,
                                   fontWeight: FontWeight.bold
                               ),
                             ),
                             Text(
-                              type == BalanceType.data
-                                || type == BalanceType.addon
-                                || type == BalanceType.extraGb ? totalAmount.toStringAsFixed(1)
+                              unit == UnitOfMeasure.Gb ? totalAmount.toStringAsFixed(1)
                                 : totalAmount.toStringAsFixed(0),
                               style: const TextStyle(
-                                  fontSize: 16,
+                                  fontSize: 14,
                                   color: SriTelColor.grey,
                                   fontWeight: FontWeight.bold
                               ),
@@ -104,14 +93,14 @@ class BalanceCardWidget extends StatelessWidget {
                           ],
                         ),
                       ),
-                      SizedBox(
-                        height: 5,
-                      ),
+                      // SizedBox(
+                      //   height: 5,
+                      // ),
                       Text(
-                        type == BalanceType.data || type == BalanceType.addon || type == BalanceType.extraGb ? ' GB'
-                        : type == BalanceType.voiceAny || type == BalanceType.voices2s ? ' Min'
+                        unit == UnitOfMeasure.Gb ? ' GB'
+                        : unit == UnitOfMeasure.Minutes ? ' Min'
                         : ' SMS',
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 16,
                             color: SriTelColor.grey,
                             fontWeight: FontWeight.bold
@@ -122,10 +111,14 @@ class BalanceCardWidget extends StatelessWidget {
                 ),
               ),
               const SizedBox(
-                height: 10,
+                height: 12,
               ),
-              const Text(
-                  'You have remaining data 38.5 GB out of 100 GB',
+              Text(
+                  unit == UnitOfMeasure.Gb ?
+                    'You have remaining data ${(totalAmount-usage).toStringAsFixed(1)} GB out of ${totalAmount.toStringAsFixed(1)} GB'
+                  : unit == UnitOfMeasure.Minutes ?
+                  'You have remaining data ${(totalAmount-usage).toStringAsFixed(0)} Minutes out of ${totalAmount.toStringAsFixed(0)} Minutes'
+                  : 'You have remaining data ${(totalAmount-usage).toStringAsFixed(0)} SMS out of ${totalAmount.toStringAsFixed(0)} SMS',
                   textAlign: TextAlign.center
               )
             ],

@@ -1,11 +1,19 @@
+import 'package:SriTel/screens/payment_screen.dart';
 import 'package:SriTel/theme/colors.dart';
+import 'package:SriTel/widgets/button.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class BillWidget extends StatelessWidget {
+  final String title;
+  final int billId;
+  final int serviceId;
   final List<BillEntry> billEntries;
   final double taxAmount;
-  const BillWidget({super.key, required this.billEntries, required this.taxAmount});
+  final double dueAmount;
+  final double paidAmount;
+  const BillWidget({super.key, required this.title, required this.billId, required this.serviceId, required this.billEntries, required this.taxAmount, required this.dueAmount, required this.paidAmount});
 
   @override
   Widget build(BuildContext context) {
@@ -13,14 +21,30 @@ class BillWidget extends StatelessWidget {
     double totalCharge = billEntries.fold(0, (double sum, BillEntry entry) {
       return sum + entry.charge;
     });
+    double totalPayableAmount = totalCharge+dueAmount-paidAmount+taxAmount;
     String sumOfEntries = NumberFormat("#,##0.00", "en_US").format(totalCharge);
+    String dueAmounts = NumberFormat("#,##0.00", "en_US").format(dueAmount);
+    String paidAmounts = NumberFormat("#,##0.00", "en_US").format(paidAmount);
     String taxValue = NumberFormat("#,##0.00", "en_US").format(taxAmount);
-    String totalBill = NumberFormat("#,##0.00", "en_US").format(totalCharge+taxAmount);
+    String totalPayable = NumberFormat("#,##0.00", "en_US").format(totalPayableAmount);
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
       child: Column(
         children: [
+          Center(
+            child: Text(
+              title,
+              style: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: SriTelColor.titleTextColor
+              ),
+            )
+          ),
+          const SizedBox(
+            height: 15,
+          ),
           ListView.builder(
               shrinkWrap: true,
               itemCount: billEntries.length,
@@ -90,6 +114,46 @@ class BillWidget extends StatelessWidget {
                 ),
               )
             ],
+          ),Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text(
+                'Due Amount',
+                style: TextStyle(
+                  color: SriTelColor.titleTextColor,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              Text(
+                'Rs. $dueAmounts',
+                style: const TextStyle(
+                  color: SriTelColor.titleTextColor,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                ),
+              )
+            ],
+          ),Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text(
+                'Paid Amount',
+                style: TextStyle(
+                  color: SriTelColor.titleTextColor,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              Text(
+                'Rs. $paidAmounts',
+                style: const TextStyle(
+                  color: SriTelColor.titleTextColor,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                ),
+              )
+            ],
           ),
           const SizedBox(
             height: 30,
@@ -106,7 +170,7 @@ class BillWidget extends StatelessWidget {
                 ),
               ),
               Text(
-                'Rs. $totalBill',
+                'Rs. $totalPayable',
                 style: const TextStyle(
                   color: SriTelColor.titleTextColor,
                   fontSize: 16,
@@ -124,7 +188,14 @@ class BillWidget extends StatelessWidget {
             color: SriTelColor.titleTextColor,
             thickness: 2,
             height: 5,
-          )
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Button(
+              rightIcon: const Icon(Icons.arrow_forward_ios_rounded),
+              buttonText: "Pay",
+              onPressed: () => Get.to(() => PaymentScreen(billId: billId, serviceId: serviceId, totalPayable: totalPayableAmount), transition: Transition.rightToLeft,))
         ],
       ),
     );

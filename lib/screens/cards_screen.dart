@@ -169,14 +169,14 @@ class CardsScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 24),
-              CustomCard(
-                  type: CardType.light,
-                  // child: Text('Hello'),
-                  child: BillWidget(
-                    billEntries: billEntries,
-                    taxAmount: 150
-                  ),
-              ),
+              // CustomCard(
+              //     type: CardType.light,
+              //     // child: Text('Hello'),
+              //     child: BillWidget(
+              //       billEntries: billEntries,
+              //       taxAmount: 150
+              //     ),
+              // ),
               const SizedBox(height: 24),
               ToggableWidget(
                 title: 'Roaming (Voice/Data)',

@@ -1,7 +1,7 @@
 import 'package:SriTel/theme/colors.dart';
 import 'package:flutter/material.dart';
 
-enum InputType { floatingTitle, separateTitle, noTitle}
+enum InputType { floatingTitle, separateTitle, noTitle, disabled}
 
 class InputField extends StatelessWidget {
   final InputType type;
@@ -10,6 +10,7 @@ class InputField extends StatelessWidget {
   final double height;
   final Color fillColor;
   final String labelText;
+  final String hintText;
   final bool obscureText;
   final TextEditingController controller;
   final void Function(String)? onChanged;
@@ -26,15 +27,16 @@ class InputField extends StatelessWidget {
     this.fillColor = SriTelColor.lighterWhite,
     this.obscureText = false,
     this.numberInput = false,
+    String? hintText,
     this.onChanged,
-  });
+  }) : hintText = hintText ?? labelText;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if(type == InputType.separateTitle)
+        if(type == InputType.separateTitle || type == InputType.disabled)
           Text(
           labelText,
           style: const TextStyle(
@@ -43,7 +45,7 @@ class InputField extends StatelessWidget {
             fontWeight: FontWeight.w800,
           ),
         ),
-        if(type == InputType.separateTitle)
+        if(type == InputType.separateTitle || type == InputType.disabled)
           const SizedBox(
           height: 8,
         ),
@@ -59,9 +61,10 @@ class InputField extends StatelessWidget {
           ),
           child: TextField(
             onChanged: onChanged != null ? (value) => onChanged!(value) : null,
-            controller: controller,
+            controller: type == InputType.disabled ? null : controller,
             obscureText: obscureText,
             keyboardType: numberInput ? TextInputType.number : TextInputType.text,
+            enabled: type == InputType.disabled ? false : true,
             style: const TextStyle(
               color: SriTelColor.titleTextColor, // Change the text color here
               fontSize: 15.0,
@@ -91,7 +94,7 @@ class InputField extends StatelessWidget {
                   borderRadius: BorderRadius.circular(12),
                   borderSide: const BorderSide(color: SriTelColor.grey)),
               filled: true,
-              label: Text(labelText, style: TextStyle(color: color)),
+              label: Text(hintText, style: TextStyle(color: color)),
               hintStyle: TextStyle(color: color),
             ),
           ),

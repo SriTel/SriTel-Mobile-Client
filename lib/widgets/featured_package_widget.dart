@@ -9,7 +9,7 @@ class FeaturedPackageWidget extends StatelessWidget {
   final int validDays;
   final double price;
   final Callback onTap;
-  const FeaturedPackageWidget({super.key, this.type = CardType.addon, required this.data, required this.validDays, required this.price, required this.onTap});
+  const FeaturedPackageWidget({super.key, this.type = CardType.featuredpackage, required this.data, required this.validDays, required this.price, required this.onTap});
 
   @override
   Widget build(BuildContext context) {

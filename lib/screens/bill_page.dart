@@ -1,7 +1,10 @@
+import 'package:SriTel/controllers/bill_controller.dart';
+import 'package:SriTel/controllers/payment_controller.dart';
 import 'package:SriTel/screens/bill_history.dart';
 import 'package:SriTel/screens/bill_tab.dart';
 import 'package:SriTel/widgets/panel_button.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class BillPage extends StatefulWidget {
   @override
@@ -12,6 +15,8 @@ class _BillPageState extends State<BillPage> {
   int _activeTab = 0;
   //
   late PageController _pageController;
+  final PaymentController _paymentController = Get.find();
+  final BillController _billController = Get.find();
   //
   @override
   void initState() {
@@ -25,7 +30,9 @@ class _BillPageState extends State<BillPage> {
     super.dispose();
   }
   //
-  void _onTabSelected(int index) {
+  void _onTabSelected(int index) async {
+    if(index ==1) await _paymentController.initializeState();
+    if(index ==0) await _billController.initializeState();
     _pageController.animateToPage(
       index,
       duration: const Duration(milliseconds: 300),

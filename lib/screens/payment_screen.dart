@@ -1,10 +1,16 @@
+import 'package:SriTel/controllers/payment_controller.dart';
 import 'package:SriTel/widgets/button.dart';
 import 'package:SriTel/widgets/input_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class PaymentScreen extends StatelessWidget {
-  PaymentScreen({super.key});
+  final int billId;
+  final int serviceId;
+  final double totalPayable;
+  PaymentScreen({super.key, required this.billId, required this.serviceId, required this.totalPayable});
+  final PaymentController _paymentController = Get.find();
   final TextEditingController paymentAmountController = TextEditingController();
   final TextEditingController cardNumberController = TextEditingController();
   final TextEditingController expMonthController = TextEditingController();
@@ -19,6 +25,17 @@ class PaymentScreen extends StatelessWidget {
       ),
       body: Column(
         children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 24.0, top: 24.0, right: 24.0),
+            child: InputField(
+              type: InputType.disabled,
+              leadingIcon: const Icon(Icons.ac_unit),
+              labelText: 'Total Payable',
+              hintText: NumberFormat("#,##0.00", "en_US").format(totalPayable),
+              controller: paymentAmountController,
+              numberInput: true,
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.only(left: 24.0, top: 24.0, right: 24.0),
             child: InputField(
@@ -79,7 +96,15 @@ class PaymentScreen extends StatelessWidget {
             child: Button(
                 rightIcon: const Icon(Icons.check_circle_outline),
                 buttonText: "Pay Now",
-                onPressed: () => Get.back()),
+                onPressed: (){
+                  _paymentController.makePayment(
+                    billId,
+                    serviceId,
+                    double.parse(paymentAmountController.text),
+                    totalPayable,
+                  );
+                  Get.back();
+                }),
           )
         ],
       ),

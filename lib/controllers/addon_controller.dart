@@ -45,7 +45,7 @@ class AddOnController extends GetxController{
 
       // get packages list and map them
       final List<dynamic> jsonResponse = response.body;
-      addOns = jsonResponse.map((data) => Addon.fromJson(data)).toList().obs;
+      addOns.assignAll(jsonResponse.map((data) => Addon.fromJson(data)).toList());
       addOns.sort((a, b) => a.dataAmount.compareTo(b.dataAmount));
       update();
     } catch (e) {

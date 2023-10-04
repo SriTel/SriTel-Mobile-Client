@@ -71,26 +71,7 @@ class SriTelColor {
     ]
     // Add more gradient lists as needed
   ];
-  // voice package gradients
-  static final List<List<Color>> _voicePackageGradients = [
-    [
-      const Color(0xFFFF9C40),
-      const Color(0xFFF38739).withOpacity(0.74),
-    ],
-    [
-      const Color(0xFFFFD940),
-      const Color(0xFFFFD940).withOpacity(0.74),
-    ],
-    [
-      const Color(0xFFBF956E),
-      const Color(0xFFBF956E).withOpacity(0.74),
-    ],
-    [
-      const Color(0xFF783F08),
-      const Color(0xFF783F08).withOpacity(0.74),
-    ],
-    // Add more gradient lists as needed
-  ];
+
   // voice package gradients
   static final List<List<Color>> _addOnGradients = [
     [
@@ -116,12 +97,6 @@ class SriTelColor {
     final random = Random();
     final int randomIndex;
     switch (type) {
-      case CardType.datapackage:
-        randomIndex = random.nextInt(_dataPackageGradients.length);
-        return _dataPackageGradients[randomIndex];
-      case CardType.voicepackage:
-        randomIndex = random.nextInt(_voicePackageGradients.length);
-        return _voicePackageGradients[randomIndex];
       case CardType.addon:
         randomIndex = random.nextInt(_addOnGradients.length);
         return _addOnGradients[randomIndex];

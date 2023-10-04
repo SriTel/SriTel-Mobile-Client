@@ -1,3 +1,4 @@
+import 'package:SriTel/controllers/bill_controller.dart';
 import 'package:SriTel/screens/payment_screen.dart';
 import 'package:SriTel/widgets/bill_widget.dart';
 import 'package:SriTel/widgets/button.dart';
@@ -8,10 +9,7 @@ import 'package:get/get.dart';
 class BillTab extends StatelessWidget {
   BillTab({super.key});
 
-  List<BillEntry> billEntries = [
-    BillEntry(title: 'Domestic Calls', charge: 150),
-    BillEntry(title: 'International Calls', charge: 150)
-  ];
+  final BillController _billController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -24,18 +22,39 @@ class BillTab extends StatelessWidget {
             CustomCard(
               type: CardType.light,
               // child: Text('Hello'),
-              child: BillWidget(
-                  billEntries: billEntries,
-                  taxAmount: 150
+              child: Obx(
+                    () => BillWidget(
+                  title: 'Internet Bill',
+                  billId: _billController.getBillId(BillType.data),
+                  serviceId: _billController.getServiceId(BillType.data),
+                  billEntries: _billController.dataBillEntries,
+                  taxAmount: _billController.getTaxAmount(BillType.data),
+                  dueAmount: _billController.getDueAmount(BillType.data),
+                  paidAmount: _billController.getPaidAmount(BillType.data),
+                ),
               ),
             ),
             const SizedBox(
               height: 30,
             ),
-            Button(
-                rightIcon: const Icon(Icons.arrow_forward_ios_rounded),
-                buttonText: "Pay",
-                onPressed: () => Get.to(() => PaymentScreen())),
+            CustomCard(
+              type: CardType.light,
+              // child: Text('Hello'),
+              child: Obx(
+                    () => BillWidget(
+                  title: 'Telephone Bill',
+                  billId: _billController.getBillId(BillType.voice),
+                  serviceId: _billController.getServiceId(BillType.voice),
+                  billEntries: _billController.voiceBillEntries,
+                  taxAmount: _billController.getTaxAmount(BillType.voice),
+                  dueAmount: _billController.getDueAmount(BillType.voice),
+                  paidAmount: _billController.getPaidAmount(BillType.voice),
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 30,
+            ),
           ],
         ),
       ),
