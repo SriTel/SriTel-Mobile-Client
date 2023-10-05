@@ -46,16 +46,18 @@ Welcome to the Telecommunication App documentation! This Flutter-based mobile ap
 1. Clone this repository to your local machine:
 
    ```bash
-   git clone https://github.com/your-username/telecom-app.git
+   https://github.com/SriTel/SriTel-Mobile-Client.git
    ```
 
 2. Navigate to the project directory:
    ```bash
-   cd telecom-app
+   cd SriTel-Mobile-Client
    ```
+
 3. Change the BaseUrl to use you backend url
-   
-   lib/urils/constants.dart
+   ```bash
+   ./lib/urils/constants.dart
+   ```
 
 4. Install the required dependencies using Flutter:
    ```bash
