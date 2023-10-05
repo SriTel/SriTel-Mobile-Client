@@ -1,3 +1,4 @@
+import 'package:SriTel/controllers/auth_controller.dart';
 import 'package:SriTel/screens/signin_screen.dart';
 import 'package:SriTel/theme/colors.dart';
 import 'package:SriTel/widgets/button.dart';
@@ -8,7 +9,13 @@ import 'package:get/get.dart';
 
 class SignUpScreen extends StatelessWidget {
   SignUpScreen({super.key});
+  final AuthController _authController = Get.find();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController firstNameController = TextEditingController();
+  final TextEditingController lastNameController = TextEditingController();
+  final TextEditingController nicController = TextEditingController();
   final TextEditingController mobileNumberController = TextEditingController();
+  final TextEditingController retypePasswordController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
   @override
@@ -42,7 +49,7 @@ class SignUpScreen extends StatelessWidget {
                   ),
                   InputField(
                     labelText: 'Email',
-                    controller: mobileNumberController,
+                    controller: emailController,
                     type: InputType.separateTitle,
                   ),
                   const SizedBox(
@@ -50,7 +57,7 @@ class SignUpScreen extends StatelessWidget {
                   ),
                   InputField(
                     labelText: 'First Name',
-                    controller: mobileNumberController,
+                    controller: firstNameController,
                     type: InputType.separateTitle,
                   ),
                   const SizedBox(
@@ -58,7 +65,7 @@ class SignUpScreen extends StatelessWidget {
                   ),
                   InputField(
                     labelText: 'Last Name',
-                    controller: mobileNumberController,
+                    controller: lastNameController,
                     type: InputType.separateTitle,
                   ),
                   const SizedBox(
@@ -66,7 +73,7 @@ class SignUpScreen extends StatelessWidget {
                   ),
                   InputField(
                     labelText: 'NIC',
-                    controller: mobileNumberController,
+                    controller: nicController,
                     type: InputType.separateTitle,
                   ),
                   const SizedBox(
@@ -91,7 +98,7 @@ class SignUpScreen extends StatelessWidget {
                   ),
                   InputField(
                     labelText: 'Retype Password',
-                    controller: passwordController,
+                    controller: retypePasswordController,
                     type: InputType.separateTitle,
                     obscureText: true,
                   ),
@@ -100,7 +107,17 @@ class SignUpScreen extends StatelessWidget {
                   ),
                   Button(
                       buttonText: "Sign-Up",
-                      onPressed: () => Get.back()),
+                      onPressed: () async {
+                        if(await _authController.signUp(
+                          emailController.text,
+                          firstNameController.text,
+                          lastNameController.text,
+                          nicController.text,
+                          mobileNumberController.text,
+                          passwordController.text,
+                          retypePasswordController.text
+                        )) Get.to(() => SignInScreen());
+                      }),
                   const SizedBox(
                     height: 10,
                   ),
