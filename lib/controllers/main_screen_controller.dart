@@ -1,5 +1,5 @@
-import 'package:SriTel/screens/components_screen.dart';
-import 'package:SriTel/screens/home_screen.dart';
+import 'package:SriTel/screens/main_page.dart';
+import 'package:SriTel/screens/main_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -14,7 +14,7 @@ class MainController extends GetxController {
     // CosmixHome(),
     // SearchAndFilterScreen(),
     // MyTrips(),
-    const ComponentsScreen(),
+    const MainPage(),
   ];
 
   ThemeMode get theme => Get.isDarkMode ? ThemeMode.dark : ThemeMode.light;

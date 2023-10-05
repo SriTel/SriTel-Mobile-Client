@@ -1,12 +1,19 @@
+import 'package:SriTel/dto/login/login_response.dart';
+import 'package:SriTel/models/user.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthService extends GetxService {
+  Rx<User>? user;
   final RxString email = ''.obs;
   final RxBool isAuthenticated = false.obs;
   String _bearerToken = ''; // Store the bearer token
-
+  var name = "".obs;
   SharedPreferences? _prefs;
+
+  void meth(String n){
+    name = n.obs;
+  }
 
   Future<void> init() async {
     _prefs = await SharedPreferences.getInstance();
@@ -20,6 +27,22 @@ class AuthService extends GetxService {
     return _bearerToken;
   }
 
+  int getUserId() {
+    return (user != null) ? user!.value.id : 0;
+  }
+
+  String getFullName(){
+    return (user != null) ? "${user!.value.firstName} ${user!.value.lastName}" : "";
+  }
+
+  String getMobileNumber(){
+    return (user != null) ? user!.value.mobileNumber.replaceFirst('0', '+94') : "";
+  }
+
+  String getProfileImage(){
+    return (user != null) ? user!.value.image : "profile.png";
+  }
+
   void updateBearerToken(String newToken) {
     _bearerToken = newToken;
     _prefs?.setString('bearerToken', newToken);
@@ -30,7 +53,21 @@ class AuthService extends GetxService {
     _prefs?.setString('email', newEmail);
   }
 
-  void setAuthentication(bool value) {
+  Future<void> setUserInfo(LoginResponse loginResponse) async{
+    user = User(
+      id: loginResponse.id,
+      firstName: loginResponse.firstName,
+      lastName: loginResponse.lastName,
+      email: loginResponse.email,
+      nic: loginResponse.nic,
+      mobileNumber: loginResponse.mobileNumber,
+      password: "",
+      image: loginResponse.image,
+    ).obs;
+    updateBearerToken(loginResponse.jwtToken);
+  }
+
+  Future<void> setAuthentication(bool value) async {
     isAuthenticated.value = value;
     _prefs?.setBool('isAuthenticated', value);
   }

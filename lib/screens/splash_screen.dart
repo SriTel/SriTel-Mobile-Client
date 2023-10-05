@@ -1,6 +1,6 @@
 import 'package:SriTel/controllers/screen_controller.dart';
-import 'package:SriTel/screens/components_screen.dart';
-import 'package:SriTel/screens/home_screen.dart';
+import 'package:SriTel/screens/main_page.dart';
+import 'package:SriTel/screens/signin_screen.dart';
 import 'package:SriTel/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -26,7 +26,7 @@ class SplashScreenState extends State<SplashScreen> {
   _navigateToHome() async {
     await Future.delayed(const Duration(milliseconds: 2000), (){});
     _screenController.isSplashScreenSeen.value = true;
-    Get.to(const ComponentsScreen(), duration: const Duration(milliseconds: 1000),transition: Transition.native);
+    Get.to(() => SignInScreen(), duration: const Duration(milliseconds: 1000),transition: Transition.native);
   }
 
   @override

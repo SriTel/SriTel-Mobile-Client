@@ -1,18 +1,34 @@
+import 'package:SriTel/controllers/addon_controller.dart';
 import 'package:SriTel/theme/colors.dart';
+import 'package:SriTel/widgets/popup_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_rx/src/rx_typedefs/rx_typedefs.dart';
+import 'package:get/get.dart';
 
 class ExtraGBWidget extends StatelessWidget {
-  final double data;
-  final double price;
-  final Callback onTap;
-  ExtraGBWidget({super.key, required this.data, required this.price, required this.onTap});
+  final int id;
+  final double dataAmount;
+  final double chargePerGb;
+  const ExtraGBWidget({super.key, required this.id, required this.dataAmount, required this.chargePerGb});
 
   @override
   Widget build(BuildContext context) {
-    if(data.toInt() < 10) {
+    if(dataAmount.toInt() < 10) {
       return GestureDetector(
-        onTap: onTap,
+        onTap: () => showDialog(
+          context: context,
+          builder: (BuildContext context) {
+
+            return PopUpDialog(
+              promptText: "You want to add?",
+              backButtonText: "No",
+              forwardButtonText: "Yes",
+              onConfirm: (){
+                Get.find<AddOnController>().addAddOn(id);
+                Get.back();
+              },
+            );
+          },
+        ),
         child: Container(
           height: 77,
           decoration: BoxDecoration(
@@ -25,9 +41,9 @@ class ExtraGBWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  data.toInt().toString(),
+                  dataAmount.toInt().toString(),
                   style: TextStyle(
-                    color: data.toInt() <= 5
+                    color: dataAmount.toInt() <= 5
                         ? SriTelColor.primaryColor
                         : SriTelColor.white,
                     fontSize: 48,
@@ -43,15 +59,15 @@ class ExtraGBWidget extends StatelessWidget {
                   children: [
                     Text('GB',
                       style: TextStyle(
-                          color: data.toInt() <= 5
+                          color: dataAmount.toInt() <= 5
                               ? SriTelColor.primaryColor
                               : SriTelColor.white,
                           fontWeight: FontWeight.bold,
                           fontSize: 24
                       ),),
-                    Text('Rs.${price.toInt()}',
+                    Text('Rs.${(chargePerGb*dataAmount).toInt()}',
                       style: TextStyle(
-                          color: data.toInt() <= 5
+                          color: dataAmount.toInt() <= 5
                               ? SriTelColor.grey
                               : SriTelColor.white,
                           fontWeight: FontWeight.normal,
@@ -66,7 +82,21 @@ class ExtraGBWidget extends StatelessWidget {
       );
     }else{
       return GestureDetector(
-        onTap: onTap,
+        onTap: () => showDialog(
+          context: context,
+          builder: (BuildContext context) {
+
+            return PopUpDialog(
+              promptText: "You want to add?",
+              backButtonText: "No",
+              forwardButtonText: "Yes",
+              onConfirm: (){
+                Get.find<AddOnController>().addAddOn(id);
+                Get.back();
+              },
+            );
+          },
+        ),
         child: Container(
           height: 77,
           width: 111,
@@ -85,7 +115,7 @@ class ExtraGBWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      data.toInt().toString(),
+                      dataAmount.toInt().toString(),
                       style: const TextStyle(
                         color: SriTelColor.white,
                         fontSize: 24,
@@ -105,7 +135,7 @@ class ExtraGBWidget extends StatelessWidget {
 
                   ],
                 ),
-                Text('Rs.${price.toInt()}',
+                Text('Rs.${(chargePerGb*dataAmount).toInt()}',
                   style: const TextStyle(
                       color: SriTelColor.white,
                       fontWeight: FontWeight.normal,

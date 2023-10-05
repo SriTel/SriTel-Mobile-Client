@@ -1,19 +1,24 @@
 
+import 'package:SriTel/controllers/addon_controller.dart';
 import 'package:SriTel/theme/colors.dart';
+import 'package:SriTel/widgets/popup_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 
 class AddOnWidget extends StatelessWidget {
-  final String packageName;
-  final double price;
+  final int id;
+  final String name;
+  final double chargePerGb;
   final String image;
-  final dynamic data;
+  final dynamic dataAmount;
 
   const AddOnWidget({super.key,
-    required this.packageName,
-    required this.price,
+    required this.id,
+    required this.name,
+    required this.chargePerGb,
     required this.image,
-    this.data,
+    this.dataAmount,
   });
 
   @override
@@ -23,7 +28,7 @@ class AddOnWidget extends StatelessWidget {
       height: 186,
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage('assets/images/$image.png'), // Replace with your SVG file path
+          image: AssetImage('assets/images/packages/$image'), // Replace with your SVG file path
           fit: BoxFit.cover, // Adjust to your needs (e.g., BoxFit.fill)
         ),
         borderRadius: BorderRadius.circular(20),
@@ -41,14 +46,14 @@ class AddOnWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      packageName,
+                      name,
                       style: const TextStyle(color: SriTelColor.white,
                           fontSize: 24,
                           fontWeight: FontWeight.w500
                       ),
                     ),
                     Text(
-                      'Rs.${price.toInt()} + TAX',
+                      'Rs.${(chargePerGb*dataAmount).toInt()} + TAX',
                       style: TextStyle(color: SriTelColor.white.withOpacity(0.8),
                         fontSize: 12,
                       ),
@@ -56,7 +61,21 @@ class AddOnWidget extends StatelessWidget {
                   ],
                 ),
                 GestureDetector(
-                  onTap: (){},
+                  onTap: () => showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+
+                      return PopUpDialog(
+                        promptText: "You want to add?",
+                        backButtonText: "No",
+                        forwardButtonText: "Yes",
+                        onConfirm: (){
+                          Get.find<AddOnController>().addAddOn(id);
+                          Get.back();
+                        },
+                      );
+                    },
+                  ),
                   child: Container(
                     padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 5),
                     decoration: BoxDecoration(
@@ -104,7 +123,7 @@ class AddOnWidget extends StatelessWidget {
                       height: 5,
                     ),
                     Text(
-                      data.toString(),
+                      dataAmount.toStringAsFixed(0),
                       style: const TextStyle(color: SriTelColor.white,
                           fontSize: 36,
                           fontWeight: FontWeight.w500

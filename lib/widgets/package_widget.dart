@@ -1,9 +1,13 @@
 
+import 'package:SriTel/controllers/package_controller.dart';
 import 'package:SriTel/theme/colors.dart';
+import 'package:SriTel/widgets/popup_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 
 class PackageWidget extends StatelessWidget {
+  final int id;
   final String packageName;
   final double price;
   final String image;
@@ -14,13 +18,12 @@ class PackageWidget extends StatelessWidget {
   final dynamic anyCallMinutes;
   final dynamic s2sSMSCount;
   final dynamic anySMSCount;
-  final int state;
 
   const PackageWidget({super.key,
+    required this.id,
     required this.packageName,
     required this.price,
     required this.image,
-    required this.state,
     this.peekData,
     this.offPeekData,
     this.anytimeData,
@@ -37,7 +40,7 @@ class PackageWidget extends StatelessWidget {
       height: 186,
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage('assets/images/$image.png'), // Replace with your SVG file path
+          image: AssetImage('assets/images/packages/$image'), // Replace with your SVG file path
           fit: BoxFit.cover, // Adjust to your needs (e.g., BoxFit.fill)
         ),
         borderRadius: BorderRadius.circular(20),
@@ -70,7 +73,21 @@ class PackageWidget extends StatelessWidget {
                   ],
                 ),
                 GestureDetector(
-                  onTap: (){},
+                  onTap: () => showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+
+                      return PopUpDialog(
+                        promptText: "You want to change?",
+                        backButtonText: "No",
+                        forwardButtonText: "Yes",
+                        onConfirm: (){
+                          Get.find<PackageController>().changePackage(id);
+                          Get.back();
+                        },
+                      );
+                    },
+                  ),
                   child: Container(
                     padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 5),
                     decoration: BoxDecoration(
@@ -79,9 +96,9 @@ class PackageWidget extends StatelessWidget {
                       ),
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    child: Row(
+                    child: Obx(() => Row(
                       children: [
-                        Text(state == 1 ? 'Active' : 'Upgrade',
+                        Text(Get.find<PackageController>().isAnActivePackage(id) ? 'Active' : 'Activate',
                           style: const TextStyle(color: SriTelColor.white,
                               fontSize: 12,
                               fontWeight: FontWeight.w500
@@ -90,11 +107,11 @@ class PackageWidget extends StatelessWidget {
                         const SizedBox(
                           width: 5,
                         ),
-                        state == 1 ?
+                        Get.find<PackageController>().isAnActivePackage(id) ?
                         SvgPicture.asset('assets/images/active-eclipse.svg')
                             : SvgPicture.asset('assets/images/inactive-eclipse.svg')
                       ],
-                    ),
+                    )),
                   ),
                 )
               ],
@@ -122,8 +139,8 @@ class PackageWidget extends StatelessWidget {
                       height: 5,
                     ),
                     Text(
-                      (peekData != null && offPeekData != null) ? peekData.toString()
-                          : (anytimeData != null) ? anytimeData.toString()
+                      (peekData != null && offPeekData != null) ? peekData.toStringAsFixed(0)
+                          : (anytimeData != null) ? anytimeData.toStringAsFixed(0)
                           : (s2sCallMinutes != null && anyCallMinutes != null) ? s2sCallMinutes.toString()
                           : s2sSMSCount.toString(),
                       style: TextStyle(color: SriTelColor.white,
@@ -161,7 +178,7 @@ class PackageWidget extends StatelessWidget {
                       height: 5,
                     ),
                     Text(
-                      (peekData != null && offPeekData != null) ? offPeekData.toString()
+                      (peekData != null && offPeekData != null) ? offPeekData.toStringAsFixed(0)
                           : (s2sCallMinutes != null && anyCallMinutes != null) ? anyCallMinutes.toString()
                           : (s2sSMSCount != null && anySMSCount != null) ? anySMSCount.toString()
                           : '',

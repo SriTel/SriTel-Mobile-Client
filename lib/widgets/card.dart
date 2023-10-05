@@ -2,7 +2,7 @@ import 'package:SriTel/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-enum CardType { light, datapackage, voicepackage, addon, extragb1, extragb2, extragb3 }
+enum CardType { light, datapackage, voicepackage, addon, extragb1, extragb2, extragb3, featuredpackage }
 
 class CustomCard extends StatelessWidget {
   final Widget child; // New property to pass a child widget
@@ -26,7 +26,7 @@ class CustomCard extends StatelessWidget {
           showShadow
               ? const BoxShadow(
                   color: SriTelColor.lightGrey,
-                  blurRadius: 32,
+                  blurRadius: 16,
                   offset: Offset(0, 8),
                   spreadRadius: 0,
                 )
@@ -38,7 +38,7 @@ class CustomCard extends StatelessWidget {
                 ),
         ],
         gradient: LinearGradient(
-          colors: type == CardType.light
+          colors: type == CardType.light || type == CardType.addon || type == CardType.datapackage || type == CardType.voicepackage || type == CardType.extragb1
               ? SriTelColor.lightGradient
                 : SriTelColor.getRandomGradient(type),
           begin: Alignment.topLeft,

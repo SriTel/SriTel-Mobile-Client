@@ -9,72 +9,7 @@ import '../theme/colors.dart';
 import 'auth_service.dart';
 
 class ApiService extends GetConnect {
-  // Future<List<Planet>> fetchAllPlanets() async {
-  //   final response = await http.get(Uri.parse('$baseUrl/allplanets'));
-  //   if (response.statusCode == 200) {
-  //     final List<dynamic> data = json.decode(response.body);
-  //     return data.map((item) => Planet.fromJson(item)).toList();
-  //   } else {
-  //     throw Exception('Failed to load data');
-  //   }
-  // }
-  //
-  // Future<bool> postBooking({
-  //   required DateTime placedTime,
-  //   required int adultCount,
-  //   required int childCount,
-  //   required String additionalRemarks,
-  //   required int additionalLuggageCapacity,
-  //   required double additionalLuggageCharge,
-  //   required double netValue,
-  //   required String flightId,
-  //   required List<String> cabinIds,
-  //   required double paymentAmount,
-  // }) async {
-  //   final url = Uri.parse('$baseUrl/bookings');
-  //
-  //   Map<String, dynamic> requestBody = {
-  //     'placedTime': placedTime.toIso8601String(),
-  //     'adultCount': adultCount,
-  //     'childCount': childCount,
-  //     'additionalRemarks': additionalRemarks,
-  //     'additionalLuggageCapacity': additionalLuggageCapacity,
-  //     'additionalLuggageCharge': additionalLuggageCharge,
-  //     'netValue': netValue,
-  //     'flightId': flightId,
-  //     'cabinIds': cabinIds,
-  //     'paymentAmount': paymentAmount,
-  //   };
-  //
-  //   final response = await http.post(
-  //     url,
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: jsonEncode(requestBody),
-  //   );
-  //
-  //   if (response.statusCode == 200 || response.statusCode == 201) {
-  //     print('Booking created successfully');
-  //     return true;
-  //   } else {
-  //     print('Error creating booking: ${response.body}');
-  //     return false;
-  //   }
-  // }
-
-  // Future<List<SpaceLine>> fetchSpaceLines() async {
-  //   final response = await http.get(Uri.parse('$baseUrl/spacelines'));
-  //   if (response.statusCode == 200) {
-  //     final List<dynamic> data = json.decode(response.body);
-  //     return data.map((item) => SpaceLine.fromJson(item)).toList();
-  //   } else {
-  //     throw Exception('Failed to load data');
-  //   }
-  // }
-
-  final AuthService _authService =
-      Get.find(); // Get a reference to the AuthService
+  final AuthService _authService = Get.find(); // Get a reference to the AuthService
 
   @override
   void onInit() {
@@ -94,7 +29,7 @@ class ApiService extends GetConnect {
   }) async {
     try {
       final response = await get(
-        endpoint,
+        baseUrl + endpoint,
         headers: {
           ...headers ?? {},
           // Keep any existing headers
@@ -113,7 +48,7 @@ class ApiService extends GetConnect {
       if (response.statusCode == 401) {
         throw ForceLogoutException("Error: 401 Unauthorized");
       }
-
+      print(response.body);
       return response;
     } catch (error) {
       _handleError(error);
@@ -146,13 +81,13 @@ class ApiService extends GetConnect {
       );
 
       if (kDebugMode) {
-        print(response.body);
+        print(response);
       }
 
       if (response.statusCode == 401) {
         throw ForceLogoutException("Error: 401 Unauthorized");
       }
-
+      print(response.body);
       return response;
     } catch (error) {
       _handleError(error);
@@ -178,6 +113,7 @@ class ApiService extends GetConnect {
       );
     } else {
       if (kDebugMode) {
+        print("here5");
         print(error);
       }
       // Handle other errors

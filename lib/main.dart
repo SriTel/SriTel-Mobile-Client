@@ -1,6 +1,11 @@
+import 'package:SriTel/bindings/all_bindings.dart';
+import 'package:SriTel/controllers/auth_controller.dart';
+import 'package:SriTel/controllers/package_controller.dart';
 import 'package:SriTel/controllers/screen_controller.dart';
-import 'package:SriTel/screens/home_screen.dart';
+import 'package:SriTel/screens/main_page.dart';
 import 'package:SriTel/screens/splash_screen.dart';
+import 'package:SriTel/services/api_service.dart';
+import 'package:SriTel/services/auth_service.dart';
 import 'package:SriTel/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -19,12 +24,10 @@ void main() {
 class MyApp extends StatelessWidget {
   MyApp({super.key});
   final ScreenController _screenController = Get.put(ScreenController());
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    // Get.put(MainController());
-    // Get.put(AuthService());
-    // Get.put(ApiService());
 
     // Force portrait mode
     SystemChrome.setPreferredOrientations([
@@ -40,10 +43,11 @@ class MyApp extends StatelessWidget {
     ));
 
     return GetMaterialApp(
+      initialBinding: AllBindings(),
       debugShowCheckedModeBanner: false,
       title: 'SriTel',
       theme: AppTheme.lightTheme,
-      home: _screenController.isSplashScreenSeen.value ? const HomeScreen() : const SplashScreen(),
+      home: _screenController.isSplashScreenSeen.value ? const MainPage() : const SplashScreen(),
     );
   }
 }
