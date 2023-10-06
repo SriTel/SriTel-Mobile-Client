@@ -54,9 +54,9 @@ Welcome to the Telecommunication App documentation! This Flutter-based mobile ap
    cd SriTel-Mobile-Client
    ```
 
-3. Change the BaseUrl to use you backend url
+3. Change the BaseUrl to your backend url
    ```bash
-   ./lib/urils/constants.dart
+   ./lib/util/constants.dart
    ```
 
 4. Install the required dependencies using Flutter:
