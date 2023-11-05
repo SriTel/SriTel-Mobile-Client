@@ -30,7 +30,7 @@ class Payment{
       billId: json['billId'],
       userId: json['userId'],
         serviceId: json['serviceId'],
-        payDatetime: DateTime.parse(json['payDateTime'].toString().substring(0, 26)),
+        payDatetime: DateTime.parse(json['payDateTime'].toString().substring(0, 19)),
         payMethod: _paymentTypeMapping[json['payMethod']] ?? PaymentType.card,
         payAmount: _jsonToDouble(json['payAmount']),
         outstanding: _jsonToDouble(json['outstanding']));
