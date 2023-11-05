@@ -109,6 +109,7 @@ class PackageController extends GetxController{
 
       final dynamic responseBody = response.body;
       final List<int> jsonResponse = List<int>.from(responseBody);
+      print(jsonResponse);
       activePackageIds = jsonResponse.toSet().obs;
       update();
     } catch (e) {
